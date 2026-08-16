@@ -130,6 +130,138 @@
     color: var(--accent-text-soft);
   }
 
+  .hero-shell,
+  .page-intro-shell,
+  .browse-shell,
+  .contribute-hero {
+    @apply rounded-[2rem] border p-6 md:p-8;
+    border-color: var(--panel-border);
+    background:
+      linear-gradient(145deg, rgb(16 30 60 / 96%), rgb(9 20 42 / 94%)),
+      linear-gradient(135deg, var(--panel-bg-from), var(--panel-bg-to));
+    box-shadow:
+      0 24px 60px rgb(1 7 18 / 30%),
+      inset 0 1px 0 rgb(255 255 255 / 8%);
+  }
+
+  .hero-shell {
+    @apply grid gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.85fr)] lg:items-start;
+  }
+
+  .hero-content {
+    @apply space-y-5;
+  }
+
+  .hero-aside,
+  .browse-summary-panel {
+    @apply grid gap-5 rounded-[1.75rem] border p-5 md:p-6;
+    border-color: rgb(255 255 255 / 12%);
+    background: linear-gradient(180deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 3%));
+  }
+
+  .hero-stat-block {
+    @apply grid gap-2;
+  }
+
+  .hero-stat-label,
+  .browse-summary-label,
+  .browse-field-label,
+  .sample-meta-label,
+  .step-token {
+    @apply text-[0.72rem] font-semibold uppercase tracking-[0.16em];
+    color: #b4c3e6;
+  }
+
+  .hero-stat-value,
+  .browse-summary-value {
+    @apply text-4xl font-bold text-white md:text-5xl;
+  }
+
+  .hero-breakdown {
+    @apply grid gap-3;
+  }
+
+  .hero-breakdown.compact {
+    @apply md:grid-cols-2;
+  }
+
+  .hero-breakdown-row {
+    @apply flex items-center justify-between gap-4 rounded-2xl border px-4 py-3;
+    border-color: rgb(255 255 255 / 10%);
+    background-color: rgb(255 255 255 / 4%);
+  }
+
+  .hero-breakdown-name,
+  .hero-breakdown-count,
+  .sample-meta-value {
+    @apply text-sm font-medium text-white;
+  }
+
+  .hero-breakdown-count {
+    color: #d7c0ec;
+  }
+
+  .browse-controls-grid {
+    @apply grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)];
+  }
+
+  .browse-search-field,
+  .browse-filter-panel,
+  .contribute-card,
+  .sample-card-shell {
+    @apply grid gap-4 rounded-[1.75rem] border;
+    border-color: var(--panel-border);
+    background: linear-gradient(135deg, var(--panel-bg-from), var(--panel-bg-to));
+    box-shadow: 0 20px 40px rgb(1 7 18 / 22%);
+  }
+
+  .browse-search-field,
+  .browse-filter-panel {
+    @apply p-5 md:p-6;
+  }
+
+  .browse-summary-note {
+    @apply text-sm leading-relaxed text-slate-300;
+  }
+
+  .sample-card-meta {
+    @apply grid gap-3 border-t border-white/10 pt-4;
+  }
+
+  .sample-meta-block {
+    @apply flex items-start justify-between gap-3;
+  }
+
+  .sample-date-pill {
+    @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-slate-200;
+    border-color: rgb(255 255 255 / 14%);
+    background-color: rgb(255 255 255 / 6%);
+  }
+
+  .sample-empty-state {
+    @apply rounded-[1.75rem] border;
+    border-color: rgb(234 92 156 / 55%);
+    background: linear-gradient(180deg, rgb(234 92 156 / 22%), rgb(234 92 156 / 12%));
+    color: #ffd7e7;
+  }
+
+  .page-intro-shell,
+  .contribute-hero {
+    @apply mb-8;
+  }
+
+  .contribute-hero {
+    @apply grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-start;
+  }
+
+  .contribute-hero-summary {
+    @apply grid gap-4;
+  }
+
+  .contribute-step-card {
+    @apply content-start;
+  }
+
   .readme-content :where(h1, h2, h3, h4, h5, h6) {
     @apply mt-6 mb-3 font-bold text-white;
   }
@@ -190,7 +322,7 @@
   }
 
   .readme-content blockquote {
-    @apply my-4 border-l-4 border-white/20 pl-4 italic text-slate-300;
+    @apply my-4 rounded-r-xl border-l border-white/20 bg-white/5 py-3 pl-4 italic text-slate-300;
   }
 
   .readme-content table {
@@ -207,7 +339,7 @@
   }
 
   .sample-type-pill {
-    @apply inline-flex h-9 w-52 items-center justify-center overflow-hidden rounded-full px-3 text-center text-xs font-semibold uppercase tracking-wide whitespace-nowrap;
+    @apply inline-flex min-h-9 max-w-full items-center justify-center overflow-hidden rounded-full px-4 py-2 text-center text-xs font-semibold uppercase tracking-wide;
     --sample-pill-base: #233f96;
     --sample-pill-corner: #1a2f71;
     background: radial-gradient(circle at top left, var(--sample-pill-base) 0%, var(--sample-pill-corner) 100%);

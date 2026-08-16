@@ -9,27 +9,39 @@ interface Props {
 const { samples, count } = Astro.props;
 ---
 
-<section class="space-y-4">
+<section class="space-y-5">
   <div class="flex flex-wrap items-center justify-between gap-3">
-    <div>
-      <p class="theme-eyebrow text-xs font-semibold uppercase tracking-[0.2em]">Recent Activity</p>
-      <h2 class="mt-1 text-2xl font-bold text-white md:text-3xl">Latest Samples</h2>
+    <div class="space-y-2">
+      <h2 class="text-2xl font-bold text-white md:text-3xl">Recently updated samples</h2>
+      <p class="max-w-2xl text-sm leading-relaxed text-slate-300">
+        Start here if you want a quick read on the newest additions and actively maintained examples in the catalog.
+      </p>
     </div>
     <a class="chip-button" href="/samples">View Full Catalog</a>
   </div>
 
   {
     samples.length > 0 ? (
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {samples.map((sample) => (
-          <a href={`/samples/${sample.folder}`} class="theme-card-hover frost-panel grid gap-3 p-4 transition hover:-translate-y-0.5">
-            <div class="sample-type-pill" data-sample-type={sample.type}>{sample.type}</div>
-            <h3 class="text-lg font-semibold text-white">{sample.title}</h3>
-            <p class="text-sm leading-relaxed text-slate-300">{sample.description}</p>
-            <p class="text-xs text-slate-400">
-              Updated: {sample.updatedAt ? sample.updatedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Unknown"}
-            </p>
-            <span class="theme-link text-sm font-semibold">View sample details</span>
+          <a href={`/samples/${sample.folder}`} class="sample-card-shell theme-card-hover grid gap-4 p-5 transition hover:-translate-y-0.5">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div class="sample-type-pill" data-sample-type={sample.type}>{sample.type}</div>
+              <div class="sample-date-pill">
+                {sample.updatedAt ? sample.updatedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Date unknown"}
+              </div>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-white">{sample.title}</h3>
+              <p class="text-sm leading-relaxed text-slate-300">{sample.description}</p>
+            </div>
+            <div class="sample-card-meta">
+              <div class="sample-meta-block">
+                <span class="sample-meta-label">Folder</span>
+                <span class="sample-meta-value">{sample.folder}</span>
+              </div>
+            </div>
+            <span class="theme-link text-sm font-semibold">Open sample details</span>
           </a>
         ))}
       </div>

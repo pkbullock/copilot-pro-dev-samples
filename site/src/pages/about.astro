@@ -62,38 +62,34 @@ const prFlowCards = [
 ---
 
 <SiteLayout title="Contributing" description="How to contribute Microsoft 365 Copilot samples to this repository.">
-  <section class="space-y-10">
-    <div class="space-y-3">
-      <p class="theme-eyebrow text-xs font-semibold uppercase tracking-[0.2em]">Contributing</p>
+  <section class="space-y-12">
+    <div class="contribute-hero">
       <h1 class="max-w-3xl text-4xl font-extrabold text-white md:text-5xl">Contribute a sample to this repository</h1>
       <p class="max-w-3xl text-base leading-relaxed text-slate-300">
         This repository accepts community Microsoft 365 Copilot sample submissions. Follow the contribution guidance to submit
         one focused pull request at a time, using the required sample structure and documentation.
       </p>
-    </div>
-
-    <div class="grid gap-4 md:grid-cols-3">
-      <article class="frost-panel p-5">
-        <h2 class="text-sm uppercase tracking-wide text-slate-300">Total Samples</h2>
-        <p class="mt-2 text-3xl font-bold text-white">{total}</p>
-      </article>
-      <article class="frost-panel p-5 md:col-span-2">
-        <h2 class="text-sm uppercase tracking-wide text-slate-300">Type Breakdown</h2>
-        <div class="mt-3 flex flex-wrap gap-2">
+      <div class="contribute-hero-summary">
+        <div class="hero-stat-block">
+          <p class="hero-stat-label">Current catalog</p>
+          <p class="hero-stat-value">{total}</p>
+        </div>
+        <div class="hero-breakdown compact">
           {types.map(([name, count]) => (
-            <span class="theme-accent-pill rounded-full border px-3 py-1 text-sm">
-              {name}: {count}
-            </span>
+            <div class="hero-breakdown-row">
+              <span class="hero-breakdown-name">{name}</span>
+              <span class="hero-breakdown-count">{count}</span>
+            </div>
           ))}
         </div>
-      </article>
+      </div>
     </div>
 
     <div class="space-y-4">
-      <h2 class="text-2xl font-bold text-white">Contribution Checklist</h2>
+      <h2 class="text-2xl font-bold text-white">Before you open a pull request</h2>
       <div class="grid gap-4 md:grid-cols-2">
         {contributionCards.map((item) => (
-          <article class="frost-panel rounded-3xl p-5 md:p-6">
+          <article class="contribute-card p-5 md:p-6">
             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#2da1e3]/90 to-[#a95bd8]/75 text-ink-950">
               <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 13l4 4L19 7"></path>
@@ -108,11 +104,11 @@ const prFlowCards = [
 
     <div class="space-y-4">
       <h2 class="text-2xl font-bold text-white">Pull Request Flow</h2>
-      <div class="grid gap-4 md:grid-cols-2">
+      <div class="grid gap-4 lg:grid-cols-4">
         {prFlowCards.map((item) => (
-          <article class="frost-panel rounded-3xl p-5 md:p-6">
-            <p class="theme-eyebrow text-xs font-semibold uppercase tracking-[0.2em]">{item.step}</p>
-            <h3 class="mt-3 text-xl font-semibold text-white">{item.title}</h3>
+          <article class="contribute-card contribute-step-card p-5 md:p-6">
+            <p class="step-token">{item.step}</p>
+            <h3 class="mt-4 text-xl font-semibold text-white">{item.title}</h3>
             <p class="mt-2 text-base leading-relaxed text-slate-300">{item.description}</p>
           </article>
         ))}

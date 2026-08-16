@@ -8,55 +8,95 @@ interface Props {
 
 const { samples, byType } = Astro.props;
 const sortedTypes = Object.keys(byType).sort((a, b) => a.localeCompare(b));
+const totalSamples = samples.length;
 ---
 
-<section id="browse" class="space-y-5">
-  <div class="frost-panel p-4 md:p-5">
-    <h2 class="text-2xl font-bold text-white">Sample Browser</h2>
-    <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300">
-      Filter by type and search by title, folder, or description.
-    </p>
+<section id="browse" class="space-y-6">
+  <div class="browse-shell space-y-5">
+    <div class="browse-header">
+      <div class="space-y-3">
+        <h2 class="text-3xl font-bold text-white md:text-4xl">Find the right sample fast</h2>
+        <p class="max-w-3xl text-sm leading-relaxed text-slate-300 md:text-base">
+          Search by title, folder, or description, then narrow by sample type. Use the live result summary to keep track of what remains in view.
+        </p>
+      </div>
+      <div class="browse-summary-panel">
+        <p class="browse-summary-label">Catalog view</p>
+        <p class="browse-summary-value"><span id="visible-count">{totalSamples}</span> of {totalSamples}</p>
+        <p class="browse-summary-note" id="active-summary">Showing all sample types.</p>
+      </div>
+    </div>
 
-    <div class="mt-4 flex flex-wrap gap-3">
-      <input
-        id="sample-search"
-        class="w-full flex-1 rounded-xl border border-white/20 bg-ink-900/80 px-4 py-3 text-sm text-slate-100 outline-none ring-sky-300/50 transition placeholder:text-slate-400 focus:ring-2"
-        type="search"
-        placeholder="Search by folder, title, or description..."
-      />
-      <div class="flex flex-wrap gap-2" id="type-pills">
-        <button type="button" class="chip-button chip-button-active pill" data-type="all">All</button>
-        {sortedTypes.map((type) => (
-          <button type="button" class="chip-button pill" data-type={type}>{type}</button>
-        ))}
+    <div class="browse-controls-grid">
+      <label class="browse-search-field" for="sample-search">
+        <span class="browse-field-label">Search the catalog</span>
+        <input
+          id="sample-search"
+          class="w-full rounded-2xl border border-white/20 bg-ink-900/80 px-4 py-3 text-sm text-slate-100 outline-none ring-sky-300/50 transition placeholder:text-slate-400 focus:ring-2 md:text-base"
+          type="search"
+          placeholder="Search by folder, title, or description..."
+        />
+      </label>
+      <div class="browse-filter-panel">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p class="browse-field-label">Filter by sample type</p>
+            <p class="text-sm text-slate-400">Choose a lane or keep the full catalog visible.</p>
+          </div>
+          <button type="button" id="clear-filters" class="chip-button text-xs md:text-sm">Clear filters</button>
+        </div>
+        <div class="flex flex-wrap gap-2" id="type-pills">
+          <button type="button" class="chip-button chip-button-active pill" data-type="all">All samples</button>
+          {sortedTypes.map((type) => (
+            <button type="button" class="chip-button pill" data-type={type}>{type}</button>
+          ))}
+        </div>
       </div>
     </div>
   </div>
 
-  <div id="samples-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+  <div id="samples-grid" class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
     {samples.map((sample) => (
       <a
         href={`/samples/${sample.folder}`}
-        class="sample-card theme-card-hover frost-panel grid gap-3 p-4 transition hover:-translate-y-0.5"
+        class="sample-card sample-card-shell theme-card-hover grid gap-4 p-5 transition hover:-translate-y-0.5"
         data-title={sample.title.toLowerCase()}
         data-folder={sample.folder.toLowerCase()}
         data-description={sample.description.toLowerCase()}
         data-type={sample.type}
       >
-        <div class="sample-type-pill" data-sample-type={sample.type}>
-          {sample.type}
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div class="sample-type-pill" data-sample-type={sample.type}>
+            {sample.type}
+          </div>
+          <div class="sample-date-pill">
+            {sample.updatedAt ? sample.updatedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Date unknown"}
+          </div>
         </div>
-        <h3 class="text-lg font-semibold text-white">{sample.title}</h3>
-        <p class="text-sm leading-relaxed text-slate-300">{sample.description}</p>
-        <div class="text-xs text-slate-400">Folder: {sample.folder}</div>
-        <div class="text-xs text-slate-400">
-          Last updated: {sample.updatedAt ? sample.updatedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Unknown"}
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-white">{sample.title}</h3>
+          <p class="text-sm leading-relaxed text-slate-300">{sample.description}</p>
         </div>
-        <span class="theme-link text-sm font-semibold">View sample details</span>
+        <div class="sample-card-meta">
+          <div class="sample-meta-block">
+            <span class="sample-meta-label">Folder</span>
+            <span class="sample-meta-value">{sample.folder}</span>
+          </div>
+          <div class="sample-meta-block">
+            <span class="sample-meta-label">Details</span>
+            <span class="sample-meta-value">{sample.longDescription.length > 0 ? `${sample.longDescription.length} detail points` : "Summary only"}</span>
+          </div>
+          <div class="sample-meta-block">
+            <span class="sample-meta-label">Metadata</span>
+            <span class="sample-meta-value">{sample.metadata.length > 0 ? `${sample.metadata.length} tags available` : "No tags"}</span>
+          </div>
+        </div>
+        <span class="theme-link text-sm font-semibold">Open sample details</span>
       </a>
     ))}
-    <div id="empty-state" class="frost-panel hidden border-[#ea5c9c]/55 bg-[#ea5c9c]/20 p-4 text-sm text-[#ffd7e7]">
-      No samples match this search/filter combination.
+    <div id="empty-state" class="sample-empty-state hidden p-5 text-sm">
+      <p class="text-base font-semibold text-white">No samples match this search and filter combination.</p>
+      <p class="mt-2 text-slate-200">Clear the current filters or broaden your search to bring the catalog back into view.</p>
     </div>
   </div>
 </section>
