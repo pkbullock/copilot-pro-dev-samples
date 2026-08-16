@@ -3,6 +3,9 @@ export function initSampleBrowser() {
   const pills = Array.from(document.querySelectorAll<HTMLButtonElement>("#type-pills .pill"));
   const cards = Array.from(document.querySelectorAll<HTMLElement>("#samples-grid .sample-card"));
   const empty = document.querySelector<HTMLElement>("#empty-state");
+  const clearFilters = document.querySelector<HTMLButtonElement>("#clear-filters");
+  const visibleCount = document.querySelector<HTMLElement>("#visible-count");
+  const activeSummary = document.querySelector<HTMLElement>("#active-summary");
 
   if (!search || pills.length === 0 || cards.length === 0) {
     return;
@@ -29,6 +32,16 @@ export function initSampleBrowser() {
     if (empty) {
       empty.classList.toggle("hidden", visible !== 0);
     }
+
+    if (visibleCount) {
+      visibleCount.textContent = String(visible);
+    }
+
+    if (activeSummary) {
+      const typeLabel = activeType === "all" ? "all sample types" : activeType;
+      const queryLabel = query.length > 0 ? `matching “${search.value.trim()}”` : "with no search term";
+      activeSummary.textContent = `Showing ${typeLabel} ${queryLabel}.`;
+    }
   };
 
   search.addEventListener("input", applyFilters);
@@ -38,10 +51,23 @@ export function initSampleBrowser() {
       activeType = pill.dataset.type || "all";
       for (const item of pills) {
         item.classList.toggle("chip-button-active", item === pill);
+        item.setAttribute("aria-pressed", String(item === pill));
       }
       applyFilters();
     });
   }
+
+  clearFilters?.addEventListener("click", () => {
+    activeType = "all";
+    search.value = "";
+    for (const item of pills) {
+      const isAll = item.dataset.type === "all";
+      item.classList.toggle("chip-button-active", isAll);
+      item.setAttribute("aria-pressed", String(isAll));
+    }
+    applyFilters();
+    search.focus();
+  });
 
   applyFilters();
 }

@@ -41,21 +41,21 @@ const documentTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}
   </head>
   <body>
     <header class="sticky top-0 z-30 border-b border-white/10 bg-ink-950/70 backdrop-blur-lg">
-      <div class="mx-auto flex h-20 w-full max-w-6xl items-center justify-between gap-4 px-4 md:px-6">
-        <a class="inline-flex items-center gap-3 text-lg font-bold tracking-wide text-white" href="/">
-          <img src="/pnp-copilot-samples-badge.svg" alt="PnP Copilot Samples" class="h-12 w-auto" />
+      <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-4 md:px-6 lg:flex-row lg:items-center lg:justify-between">
+        <a class="inline-flex items-center self-start text-xl font-bold tracking-[0.01em] text-white lg:self-center" href="/">
           <span>Copilot <span class="text-sky-300">Pro Dev Samples</span></span>
         </a>
-        <nav class="flex items-center gap-2 md:gap-3">
+        <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 md:gap-3 lg:justify-end">
           {navItems.map((item) => {
             const isCurrent = currentPath === item.href;
             return (
               <a
                 href={item.href}
                 class:list={[
-                  "chip-button inline-flex items-center gap-2 text-xs md:text-sm",
+                  "chip-button inline-flex min-h-11 items-center gap-2 text-sm",
                   isCurrent && "chip-button-active",
                 ]}
+                aria-current={isCurrent ? "page" : undefined}
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 fill-current">
                   <path d={item.icon}></path>
@@ -68,7 +68,7 @@ const documentTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}
             href="https://github.com/pnp/copilot-pro-dev-samples"
             target="_blank"
             rel="noreferrer"
-            class="chip-button chip-button-repo hidden items-center gap-2 sm:inline-flex"
+            class="chip-button chip-button-repo hidden min-h-11 items-center gap-2 sm:inline-flex"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 fill-current">
               <path d={repoIcon}></path>
