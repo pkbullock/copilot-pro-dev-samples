@@ -51,6 +51,7 @@ export function initSampleBrowser() {
       activeType = pill.dataset.type || "all";
       for (const item of pills) {
         item.classList.toggle("chip-button-active", item === pill);
+        item.setAttribute("aria-pressed", String(item === pill));
       }
       applyFilters();
     });
@@ -60,7 +61,9 @@ export function initSampleBrowser() {
     activeType = "all";
     search.value = "";
     for (const item of pills) {
-      item.classList.toggle("chip-button-active", item.dataset.type === "all");
+      const isAll = item.dataset.type === "all";
+      item.classList.toggle("chip-button-active", isAll);
+      item.setAttribute("aria-pressed", String(isAll));
     }
     applyFilters();
     search.focus();
