@@ -1,0 +1,61 @@
+[
+  {
+    "name": "pnp-copilot-pro-dev-YOUR_AGENT_FOLDER",
+    "source": "pnp",
+    "title": "YOUR-SAMPLE-TITLE",
+    "shortDescription": "YOUR-SHORT-DESCRIPTION",
+    "url": "https://github.com/pnp/copilot-pro-dev-samples/tree/main/samples/YOUR_AGENT_FOLDER",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/copilot-pro-dev-samples/tree/main/samples/YOUR_AGENT_FOLDER",
+    "longDescription": [
+      "YOUR-LONG-DESCRIPTION"
+    ],
+    "creationDateTime": "YYYY-MM-DD",
+    "updateDateTime": "YYYY-MM-DD",
+    "products": [
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PLATFORM",
+        "value": "YOUR-PLATFORM"
+      },
+      {
+        "key": "LANGUAGE",
+        "value": "YOUR-LANGUAGE"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/copilot-pro-dev-samples/raw/main/samples/YOUR_AGENT_FOLDER/assets/YOUR-IMAGE-NAME-HERE",
+        "alt": "Custom engine agent doing x"
+      },
+      {
+        "type": "video",
+        "order": 101,
+        "url": "https://www.youtube.com/embed/YOUR-YOUTUBE-VIDEO-ID",
+        "alt": "Copilot Studio agent doing x"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "YOUR-GITHUB-ACCOUNT",
+        "pictureUrl": "https://github.com/YOUR-GITHUB-ACCOUNT.png",
+        "name": "YOUR-NAME"
+      }
+    ],
+    "references": [
+      {
+        "name": "Custom engine agents for Microsoft 365 Copilot",
+        "description": "Learn about custom engine agents for Microsoft 365 Copilot.",
+        "url": "https://learn.microsoft.com/microsoft-365-copilot/extensibility/overview-custom-engine-agent"
+      },
+      {
+        "name": "Microsoft 365 Agents SDK",
+        "description": "Learn how to build custom engine agents with Microsoft 365 Agents SDK.",
+        "url": "https://learn.microsoft.com/microsoft-365/agents-sdk/"
+      }
+    ]
+  }
+]
