@@ -12,7 +12,8 @@ Astro-based multi-page catalog site for browsing sample projects in the reposito
 
 - `/` Home page with quick summary stats
 - `/samples` Interactive sample browser with search and type filters
-- `/about` Implementation notes and catalog overview
+- `/contribute` Implementation notes and catalog overview
+
 
 ## Project Structure
 
