@@ -14,7 +14,7 @@ const featured = getFeaturedSample(samples);
 <SiteLayout title="Copilot Pro Dev Samples" description="Explore Microsoft 365 Copilot community samples.">
   <section class="hero-shell">
     <div class="hero-content">
-      <h1 class="max-w-3xl text-4xl font-extrabold leading-tight text-white md:text-6xl">
+      <h1 class="max-w-3xl text-4xl font-extrabold leading-tight text-white md:text-5xl">
         Explore Microsoft 365 Copilot samples built to inspire.
       </h1>
       <p class="max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
@@ -33,9 +33,10 @@ const featured = getFeaturedSample(samples);
             <p class="theme-eyebrow text-xs font-semibold uppercase tracking-[0.2em]">Featured sample</p>
             <div class="hero-featured-image">
               <img
-                src={featured.sample.imageUrl || "/placeholder.png"}
+                src={featured.sample.imageUrl || "/placeholder.webp"}
                 alt={featured.sample.imageAlt.trim().length > 0 ? featured.sample.imageAlt : `${featured.sample.title} preview`}
                 loading="lazy"
+                onerror="this.onerror=null;this.src='/placeholder.webp';"
               />
             </div>
             <p class="hero-featured-title">{featured.sample.title}</p>

@@ -20,16 +20,14 @@ const totalSamples = samples.length;
           Search by title, folder, or description, then narrow by sample type. Use the live result summary to keep track of what remains in view.
         </p>
       </div>
-      <div class="browse-summary-panel" role="status" aria-live="polite" aria-atomic="true">
-        <p class="browse-summary-label">Catalog view</p>
-        <p class="browse-summary-value"><span id="visible-count">{totalSamples}</span> of {totalSamples}</p>
-        <p class="browse-summary-note" id="active-summary">Showing all sample types.</p>
-      </div>
     </div>
 
     <div class="browse-controls-grid">
       <label class="browse-search-field" for="sample-search">
-        <span class="browse-field-label">Search the catalog</span>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="browse-field-label">Search the catalog</span>
+          <span class="text-xs text-slate-400"><span id="catalog-count">{totalSamples}</span> of {totalSamples} samples</span>
+        </div>
         <input
           id="sample-search"
           class="w-full rounded-2xl border border-white/20 bg-ink-900/80 px-4 py-3 text-sm text-slate-100 outline-none ring-sky-300/50 transition placeholder:text-slate-400 focus:ring-2 md:text-base"
@@ -60,32 +58,32 @@ const totalSamples = samples.length;
     {samples.map((sample) => (
       <a
         href={`/samples/${sample.folder}`}
-        class="sample-card sample-card-shell theme-card-hover grid gap-4 p-5 transition hover:-translate-y-0.5"
+        class="sample-card sample-card-shell theme-card-hover flex flex-col gap-4 p-5 transition hover:-translate-y-0.5"
         data-title={sample.title.toLowerCase()}
         data-folder={sample.folder.toLowerCase()}
         data-description={sample.description.toLowerCase()}
         data-type={sample.type}
       >
-        <div class="flex flex-wrap items-start justify-between gap-3">
+        <div class="flex h-9 shrink-0 items-center justify-between gap-3">
           <div class="sample-type-pill" data-sample-type={sample.type}>
             {sample.type}
           </div>
-          <div class="sample-date-pill">
+          <div class="sample-date-pill shrink-0">
             {sample.updatedAt ? sample.updatedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Date unknown"}
           </div>
         </div>
         <div class="sample-card-image">
           <img
-            src={sample.imageUrl || "/placeholder.png"}
+            src={sample.imageUrl || "/placeholder.webp"}
             alt={sample.imageAlt.trim().length > 0 ? sample.imageAlt : `${sample.title} preview`}
             loading="lazy"
+            onerror="this.onerror=null;this.src='/placeholder.webp';"
           />
         </div>
         <div class="space-y-3">
-          <h3 class="text-xl font-semibold text-white">{sample.title}</h3>
-          <p class="text-sm leading-relaxed text-slate-300">{sample.description}</p>
+          <h3 class="sample-card-title">{sample.title}</h3>
+          <p class="sample-card-description">{sample.description}</p>
         </div>
-        <span class="theme-link text-sm font-semibold">Open sample details</span>
       </a>
     ))}
     <div id="empty-state" class="sample-empty-state hidden p-5 text-sm">

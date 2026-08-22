@@ -8,14 +8,6 @@ const { byType, total } = getSampleStats(samples);
 ---
 
 <SiteLayout title="Browse Samples" description="Filter and browse Microsoft 365 Copilot sample projects.">
-  <section class="page-intro-shell">
-    <div class="space-y-4">
-      <h1 class="text-4xl font-extrabold text-white md:text-5xl">Browse {total} community samples</h1>
-      <p class="max-w-3xl text-base leading-relaxed text-slate-300">
-        Move from broad discovery to a short list quickly. Search the catalog, filter by type, and use the richer card metadata to decide what deserves a deeper look.
-      </p>
-    </div>
-  </section>
 
   <SampleBrowser samples={samples} byType={byType} />
 </SiteLayout>

@@ -6,6 +6,7 @@ export function initSampleBrowser() {
   const clearFilters = document.querySelector<HTMLButtonElement>("#clear-filters");
   const visibleCount = document.querySelector<HTMLElement>("#visible-count");
   const activeSummary = document.querySelector<HTMLElement>("#active-summary");
+  const catalogCount = document.querySelector<HTMLElement>("#catalog-count");
 
   if (!search || pills.length === 0 || cards.length === 0) {
     return;
@@ -35,6 +36,10 @@ export function initSampleBrowser() {
 
     if (visibleCount) {
       visibleCount.textContent = String(visible);
+    }
+
+    if (catalogCount) {
+      catalogCount.textContent = String(visible);
     }
 
     if (activeSummary) {
