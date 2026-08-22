@@ -74,23 +74,16 @@ const totalSamples = samples.length;
             {sample.updatedAt ? sample.updatedAt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Date unknown"}
           </div>
         </div>
+        <div class="sample-card-image">
+          <img
+            src={sample.imageUrl || "/placeholder.png"}
+            alt={sample.imageAlt.trim().length > 0 ? sample.imageAlt : `${sample.title} preview`}
+            loading="lazy"
+          />
+        </div>
         <div class="space-y-3">
           <h3 class="text-xl font-semibold text-white">{sample.title}</h3>
           <p class="text-sm leading-relaxed text-slate-300">{sample.description}</p>
-        </div>
-        <div class="sample-card-meta">
-          <div class="sample-meta-block">
-            <span class="sample-meta-label">Folder</span>
-            <span class="sample-meta-value">{sample.folder}</span>
-          </div>
-          <div class="sample-meta-block">
-            <span class="sample-meta-label">Details</span>
-            <span class="sample-meta-value">{sample.longDescription.length > 0 ? `${sample.longDescription.length} detail points` : "Summary only"}</span>
-          </div>
-          <div class="sample-meta-block">
-            <span class="sample-meta-label">Metadata</span>
-            <span class="sample-meta-value">{sample.metadata.length > 0 ? `${sample.metadata.length} tags available` : "No tags"}</span>
-          </div>
         </div>
         <span class="theme-link text-sm font-semibold">Open sample details</span>
       </a>

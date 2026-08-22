@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import featuredSampleConfig from "../config/featured-sample.json";
 
 export type SampleEntry = {
   folder: string;
@@ -134,3 +135,30 @@ export function getSampleStats(samples: SampleEntry[]): SampleStats {
     topTypes,
   };
 }
+
+export type FeaturedSample = {
+  sample: SampleEntry;
+  showDescriptionAndMetadata: boolean;
+};
+
+/**
+ * Reads src/config/featured-sample.json to pick the highlighted sample for the homepage.
+ * showDescriptionAndMetadata toggles between the rich card and an image-only spotlight.
+ */
+export function getFeaturedSample(samples: SampleEntry[]): FeaturedSample | null {
+  const folder = typeof featuredSampleConfig.folder === "string" ? featuredSampleConfig.folder.trim() : "";
+  if (!folder) {
+    return null;
+  }
+
+  const sample = samples.find((entry) => entry.folder === folder);
+  if (!sample) {
+    return null;
+  }
+
+  return {
+    sample,
+    showDescriptionAndMetadata: featuredSampleConfig.showDescriptionAndMetadata !== false,
+  };
+}
+
