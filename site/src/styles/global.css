@@ -19,6 +19,7 @@
     --accent-border: rgb(152 93 202 / 60%);
     --accent-bg-soft: rgb(152 93 202 / 12%);
     --accent-text-soft: #ead8f8;
+    --page-base: #040b18;
     --page-bg:
       radial-gradient(circle at 80% -20%, rgb(45 161 227 / 22%), transparent 40%),
       radial-gradient(circle at 15% 10%, rgb(169 91 216 / 16%), transparent 42%),
@@ -62,6 +63,44 @@
     --repo-accent-text: #8fe0b3;
     --icon-accent-top: rgb(45 161 227 / 90%);
     --icon-accent-bottom: rgb(169 91 216 / 75%);
+    --main-tint: rgb(152 93 202 / 10%);
+    --main-tint-soft: rgb(152 93 202 / 4%);
+  }
+
+  :root[data-theme="light"] {
+    --text-primary: #152238;
+    --text-muted: #526174;
+    --accent-strong: #0756a8;
+    --accent-hover: #003d7a;
+    --accent-border: rgb(7 86 168 / 35%);
+    --accent-bg-soft: rgb(7 86 168 / 9%);
+    --accent-text-soft: #06458a;
+    --page-base: #f4f7fb;
+    --page-bg: #f4f7fb;
+    --panel-border: rgb(15 35 65 / 16%);
+    --panel-bg-from: #ffffff;
+    --panel-bg-to: #f1f5fa;
+    --chip-border: rgb(15 35 65 / 20%);
+    --chip-text: #334155;
+    --chip-hover-border: #985dca;
+    --chip-active-bg: #eadcf7;
+    --chip-active-text: #5f2f82;
+    --surface-strong-top: #ffffff;
+    --surface-strong-bottom: #eef4fb;
+    --surface-soft-top: rgb(255 255 255 / 90%);
+    --surface-soft-bottom: rgb(236 243 251 / 90%);
+    --surface-halo: rgb(255 255 255 / 90%);
+    --surface-shadow: rgb(15 35 65 / 12%);
+    --surface-shadow-soft: rgb(15 35 65 / 10%);
+    --surface-shadow-soft-sm: rgb(15 35 65 / 8%);
+    --accent-wash: linear-gradient(135deg, rgb(45 161 227 / 10%), rgb(152 93 202 / 8%));
+    --accent-wash-soft: linear-gradient(135deg, rgb(45 161 227 / 7%), rgb(152 93 202 / 5%));
+    --summary-count: #0756a8;
+    --summary-muted: #526174;
+    --repo-accent: rgb(7 86 168 / 40%);
+    --repo-accent-text: #0756a8;
+    --main-tint: rgb(152 93 202 / 10%);
+    --main-tint-soft: rgb(152 93 202 / 4%);
   }
 
   html {
@@ -74,7 +113,7 @@
     isolation: isolate;
     font-family: var(--font-sans);
     color: var(--text-primary);
-    background: #040b18;
+    background: var(--page-bg);
     min-height: 100vh;
   }
 
@@ -85,9 +124,8 @@
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(circle at 80% -20%, rgb(45 161 227 / 22%), transparent 40%),
-      radial-gradient(circle at 15% 10%, rgb(169 91 216 / 16%), transparent 42%),
-      linear-gradient(180deg, #040b18 0%, #09152a 45%, #040b18 100%);
+      radial-gradient(circle at 50% 0%, var(--main-tint), transparent 42%),
+      linear-gradient(180deg, var(--main-tint-soft), var(--page-base) 28%);
   }
 
   h1,
@@ -105,15 +143,48 @@
 
 @layer components {
   .frost-panel {
-    @apply rounded-2xl border;
+    @apply rounded-[10px] border;
     border-color: var(--panel-border);
     background: linear-gradient(135deg, var(--panel-bg-from), var(--panel-bg-to));
   }
 
   .chip-button {
-    @apply rounded-full border px-3 py-2 text-sm transition hover:-translate-y-0.5;
+    @apply rounded-[10px] border px-3 py-2 text-sm transition hover:-translate-y-0.5;
     border-color: var(--chip-border);
     color: var(--chip-text);
+  }
+
+  .theme-toggle {
+    @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition;
+    border-color: var(--chip-border);
+    color: var(--chip-text);
+    background: var(--surface-soft-top);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--chip-hover-border);
+    color: var(--accent-strong);
+  }
+
+  .theme-icon {
+    @apply h-5 w-5 fill-none stroke-current;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .theme-icon-moon {
+    display: none;
+    fill: currentColor;
+    stroke: none;
+  }
+
+  :root[data-theme="light"] .theme-icon-sun {
+    display: none;
+  }
+
+  :root[data-theme="light"] .theme-icon-moon {
+    display: block;
   }
 
   .chip-button:hover {
@@ -127,13 +198,13 @@
   }
 
   .chip-button-repo {
-    border-color: var(--repo-accent);
-    color: var(--repo-accent-text);
+    border-color: var(--color-sky-300);
+    color: var(--chip-text);
   }
 
   .chip-button-repo:hover {
-    border-color: var(--brand-gold-400);
-    color: var(--brand-gold-400);
+    border-color: var(--color-sky-300);
+    color: var(--chip-text);
   }
 
   .theme-eyebrow {
@@ -162,7 +233,7 @@
   .page-intro-shell,
   .browse-shell,
   .contribute-hero {
-    @apply rounded-[2rem] border p-6 md:p-8;
+    @apply rounded-[10px] border p-6 md:p-8;
     border-color: var(--panel-border);
     background:
       linear-gradient(145deg, var(--surface-strong-top), var(--surface-strong-bottom)),
@@ -171,6 +242,10 @@
       0 24px 60px var(--surface-shadow),
       inset 0 1px 0 var(--surface-halo);
     contain: layout paint;
+  }
+
+  .site-main {
+    background: transparent;
   }
 
   .hero-shell {
@@ -183,7 +258,7 @@
 
   .hero-aside,
   .browse-summary-panel {
-    @apply grid gap-5 rounded-[1.75rem] border p-5 md:p-6;
+    @apply grid gap-5 rounded-[10px] border p-5 md:p-6;
     border-color: rgb(255 255 255 / 12%);
     background:
       var(--accent-wash-soft),
@@ -218,7 +293,7 @@
   }
 
   .hero-breakdown-row {
-    @apply flex items-center justify-between gap-4 rounded-2xl border px-4 py-3;
+    @apply flex items-center justify-between gap-4 rounded-[10px] border px-4 py-3;
     border-color: rgb(255 255 255 / 10%);
     background-color: rgb(255 255 255 / 4%);
   }
@@ -238,19 +313,19 @@
   }
 
   .hero-featured-image {
-    @apply flex h-40 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-ink-900/60 p-2;
+    @apply flex h-40 items-center justify-center overflow-hidden rounded-[10px] border border-white/15 bg-ink-900/60 p-2;
   }
 
   .hero-featured-image img {
-    @apply h-full w-full rounded-xl object-contain;
+    @apply h-full w-full rounded-[10px] object-contain;
   }
 
   .sample-card-image {
-    @apply flex h-40 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-ink-900/60 p-2;
+    @apply flex h-40 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-white/15 bg-ink-900/60 p-2;
   }
 
   .sample-card-image img {
-    @apply h-full w-full rounded-xl object-contain;
+    @apply h-full w-full rounded-[10px] object-contain;
   }
 
   .sample-card-title {
@@ -268,6 +343,15 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .sample-card-author {
+    @apply mt-auto flex items-center gap-2 border-t border-white/10 pt-3 text-sm font-semibold;
+    color: var(--accent-strong);
+  }
+
+  .sample-card-author img {
+    @apply h-7 w-7 shrink-0 rounded-full object-cover;
   }
 
   .hero-featured-title {
@@ -294,7 +378,7 @@
   .browse-filter-panel,
   .contribute-card,
   .sample-card-shell {
-    @apply grid gap-4 rounded-[1.75rem] border;
+    @apply grid gap-4 rounded-[10px] border;
     border-color: var(--panel-border);
     background: linear-gradient(135deg, var(--panel-bg-from), var(--panel-bg-to));
     box-shadow: 0 14px 28px var(--surface-shadow-soft-sm);
@@ -319,15 +403,12 @@
   }
 
   .sample-date-pill {
-    @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-slate-200;
-    border-color: rgb(255 255 255 / 14%);
-    background:
-      linear-gradient(135deg, rgb(45 161 227 / 8%), rgb(152 93 202 / 8%)),
-      rgb(255 255 255 / 4%);
+    @apply inline-flex items-center text-xs font-medium;
+    color: var(--summary-muted);
   }
 
   .sample-empty-state {
-    @apply rounded-[1.75rem] border;
+    @apply rounded-[10px] border;
     border-color: var(--status-empty-border);
     background: linear-gradient(180deg, var(--status-empty-top), var(--status-empty-bottom));
     color: var(--status-empty-text);
@@ -350,7 +431,7 @@
     @apply content-start;
   }
 
-  .contribute-card .rounded-xl {
+  .contribute-card .contribute-icon {
     background: linear-gradient(135deg, var(--icon-accent-top), var(--icon-accent-bottom));
   }
 
@@ -418,7 +499,7 @@
   }
 
   .readme-content pre {
-    @apply my-4 overflow-x-auto rounded-xl border border-white/10 bg-ink-950/75 p-4 text-slate-100;
+    @apply my-4 overflow-x-auto rounded-[10px] border border-white/10 bg-ink-950/75 p-4 text-slate-100;
   }
 
   .readme-content pre code {
@@ -443,7 +524,7 @@
   }
 
   .sample-type-pill {
-    @apply inline-flex min-h-9 min-w-0 max-w-full items-center justify-center truncate rounded-full px-4 py-2 text-center text-xs font-semibold uppercase tracking-wide;
+    @apply inline-flex min-h-9 min-w-0 max-w-full items-center justify-center truncate rounded-[10px] px-4 py-2 text-center text-xs font-semibold uppercase tracking-wide;
     --sample-pill-base: #233f96;
     --sample-pill-corner: #1a2f71;
     background: radial-gradient(circle at top left, var(--sample-pill-base) 0%, var(--sample-pill-corner) 100%);
@@ -480,4 +561,60 @@
     --sample-pill-corner: #2279aa;
     color: #f9fafb;
   }
+}
+
+html[data-theme="light"] .text-white {
+  color: #152238;
+}
+
+html[data-theme="light"] .text-slate-100,
+html[data-theme="light"] .text-slate-200,
+html[data-theme="light"] .text-slate-300 {
+  color: #526174;
+}
+
+html[data-theme="light"] .text-slate-400 {
+  color: #64748b;
+}
+
+html[data-theme="light"] .border-white\/10,
+html[data-theme="light"] .border-white\/15,
+html[data-theme="light"] .border-white\/20,
+html[data-theme="light"] .border-white\/25,
+html[data-theme="light"] .border-white\/30 {
+  border-color: rgb(15 35 65 / 16%);
+}
+
+html[data-theme="light"] .bg-ink-900\/55,
+html[data-theme="light"] .bg-ink-900\/60,
+html[data-theme="light"] .bg-ink-900\/80,
+html[data-theme="light"] .bg-ink-950\/70,
+html[data-theme="light"] .bg-ink-950\/75 {
+  background-color: rgb(255 255 255 / 82%);
+}
+
+html[data-theme="light"] .bg-white\/5 {
+  background-color: rgb(15 35 65 / 4%);
+}
+
+html[data-theme="light"] .bg-white\/10 {
+  background-color: rgb(15 35 65 / 8%);
+}
+
+html[data-theme="light"] .sample-card-title,
+html[data-theme="light"] .hero-featured-title,
+html[data-theme="light"] .hero-stat-value,
+html[data-theme="light"] .hero-breakdown-name,
+html[data-theme="light"] .sample-meta-value {
+  color: #152238;
+}
+
+html[data-theme="light"] .sample-card-description,
+html[data-theme="light"] .hero-featured-description,
+html[data-theme="light"] .browse-summary-note {
+  color: #526174;
+}
+
+html[data-theme="light"] .sample-date-pill {
+  color: var(--summary-muted);
 }

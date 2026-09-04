@@ -43,6 +43,12 @@ const { samples, count } = Astro.props;
               <h3 class="sample-card-title">{sample.title}</h3>
               <p class="sample-card-description">{sample.description}</p>
             </div>
+            {sample.authors[0] && (
+              <div class="sample-card-author">
+                <img src={sample.authors[0].pictureUrl} alt="" aria-hidden="true" />
+                <span>{sample.authors[0].name}</span>
+              </div>
+            )}
           </a>
         ))}
       </div>

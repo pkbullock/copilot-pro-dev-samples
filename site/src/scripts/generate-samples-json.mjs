@@ -42,6 +42,7 @@ async function generateSamplesJson() {
       let updatedAt = null;
       let longDescription = [];
       let metadata = [];
+      let authors = [];
       let imageUrl = null;
       let imageAlt = "";
       let readmeContent = "";
@@ -62,6 +63,22 @@ async function generateSamplesJson() {
             metadata = parsed[0].metadata
               .filter((item) => item && typeof item.key === "string" && typeof item.value === "string")
               .map((item) => ({ key: item.key, value: item.value }));
+          }
+
+          if (Array.isArray(parsed[0].authors)) {
+            authors = parsed[0].authors
+              .filter(
+                (author) =>
+                  author &&
+                  typeof author.name === "string" &&
+                  typeof author.gitHubAccount === "string" &&
+                  typeof author.pictureUrl === "string"
+              )
+              .map((author) => ({
+                name: author.name,
+                gitHubAccount: author.gitHubAccount,
+                pictureUrl: author.pictureUrl,
+              }));
           }
 
           if (Array.isArray(parsed[0].thumbnails)) {
@@ -98,6 +115,7 @@ async function generateSamplesJson() {
         updatedAt,
         longDescription,
         metadata,
+        authors,
         imageUrl,
         imageAlt,
         readmeContent,

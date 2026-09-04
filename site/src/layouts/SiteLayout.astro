@@ -38,6 +38,11 @@ const documentTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{documentTitle}</title>
+    <script is:inline>
+      const storedTheme = localStorage.getItem("site-theme");
+      const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = storedTheme || preferredTheme;
+    </script>
   </head>
   <body>
     <header class="sticky top-0 z-30 border-b border-white/10 bg-ink-950/70 backdrop-blur-lg">
@@ -46,14 +51,14 @@ const documentTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}
           <img class="h-8 w-8" src="/favicon.svg" alt="" aria-hidden="true" />
           <span>Microsoft 365 Copilot <span class="text-sky-300">Pro Dev Samples</span></span>
         </a>
-        <nav aria-label="Primary" class="flex flex-wrap items-center gap-2 md:gap-3 lg:justify-end">
+        <nav aria-label="Primary" class="site-nav flex flex-wrap items-center gap-2 md:gap-3 lg:justify-end">
           {navItems.map((item) => {
             const isCurrent = currentPath === item.href;
             return (
               <a
                 href={item.href}
                 class:list={[
-                  "chip-button inline-flex min-h-11 items-center gap-2 text-sm",
+                  "chip-button border-sky-300 hover:border-sky-300 inline-flex min-h-11 items-center gap-2 text-sm",
                   isCurrent && "chip-button-active",
                 ]}
                 aria-current={isCurrent ? "page" : undefined}
@@ -69,18 +74,32 @@ const documentTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}
             href="https://github.com/pnp/copilot-pro-dev-samples"
             target="_blank"
             rel="noreferrer"
-            class="chip-button chip-button-repo hidden min-h-11 items-center gap-2 sm:inline-flex"
+            class="chip-button chip-button-repo border-sky-300 hover:border-sky-300 hidden min-h-11 shrink-0 items-center justify-center gap-2 leading-none sm:inline-flex"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 fill-current">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 shrink-0 fill-current">
               <path d={repoIcon}></path>
             </svg>
-            Repo
+            GitHub
           </a>
+          <button
+            type="button"
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Switch to light theme"
+            title="Switch to light theme"
+          >
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v2m0 14v2M5.64 5.64l1.42 1.42m9.9 9.9l1.4 1.4M3 12h2m14 0h2M5.64 18.36l1.42-1.42m9.9-9.9l1.4-1.4M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.5 15.3A8.5 8.5 0 018.7 3.5 8.5 8.5 0 1020.5 15.3z"></path>
+            </svg>
+          </button>
         </nav>
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-6xl px-4 py-10 md:px-6 md:py-14">
+    <main class="site-main mx-auto w-full max-w-6xl px-4 py-10 md:px-6 md:py-14">
       <slot />
     </main>
 
@@ -89,5 +108,21 @@ const documentTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}
         This site and samples run under MIT License. These samples are provided as is without warranty of any kind, either express or implied, including any implied warranties of fitness for a particular purpose, merchantability, or non-infringement.
       </div>
     </footer>
+    <script is:inline>
+      const themeToggle = document.querySelector("#theme-toggle");
+      const updateThemeToggle = () => {
+        const isLight = document.documentElement.dataset.theme === "light";
+        themeToggle?.setAttribute("aria-label", isLight ? "Switch to dark theme" : "Switch to light theme");
+        themeToggle?.setAttribute("title", isLight ? "Switch to dark theme" : "Switch to light theme");
+      };
+
+      updateThemeToggle();
+      themeToggle?.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+        document.documentElement.dataset.theme = nextTheme;
+        localStorage.setItem("site-theme", nextTheme);
+        updateThemeToggle();
+      });
+    </script>
   </body>
 </html>

@@ -39,11 +39,11 @@ const readmeHtml = hasReadme ? await marked.parse(sample.readmeContent) : "";
 
       {
         sample.imageUrl ? (
-          <div class="overflow-hidden rounded-2xl border border-white/15 bg-ink-900/60 p-2">
-            <img src={sample.imageUrl} alt={imageAlt} class="max-h-[32rem] w-full rounded-xl object-contain" loading="lazy" />
+          <div class="overflow-hidden rounded-[10px] border border-white/15 bg-ink-900/60 p-2">
+            <img src={sample.imageUrl} alt={imageAlt} class="max-h-[32rem] w-full rounded-[10px] object-contain" loading="lazy" />
           </div>
         ) : (
-          <div class="rounded-2xl border border-dashed border-white/25 bg-ink-900/55 p-5 text-sm text-slate-300">
+          <div class="rounded-[10px] border border-dashed border-white/25 bg-ink-900/55 p-5 text-sm text-slate-300">
             No image available for this sample.
           </div>
         )
@@ -74,7 +74,7 @@ const readmeHtml = hasReadme ? await marked.parse(sample.readmeContent) : "";
         <h2 class="text-xl font-bold text-white">README</h2>
         {
           hasReadme ? (
-            <article class="overflow-x-auto rounded-2xl border border-white/15 bg-ink-900/55 p-4 md:p-5">
+            <article class="overflow-x-auto rounded-[10px] border border-white/15 bg-ink-900/55 p-4 md:p-5">
               <div class="readme-content text-sm leading-relaxed text-slate-200" set:html={readmeHtml}></div>
             </article>
           ) : (

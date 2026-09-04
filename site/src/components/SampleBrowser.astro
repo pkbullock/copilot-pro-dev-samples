@@ -30,7 +30,7 @@ const totalSamples = samples.length;
         </div>
         <input
           id="sample-search"
-          class="w-full rounded-2xl border border-white/20 bg-ink-900/80 px-4 py-3 text-sm text-slate-100 outline-none ring-sky-300/50 transition placeholder:text-slate-400 focus:ring-2 md:text-base"
+          class="w-full rounded-[10px] border border-white/20 bg-ink-900/80 px-4 py-3 text-sm text-slate-100 outline-none ring-sky-300/50 transition placeholder:text-slate-400 focus:ring-2 md:text-base"
           type="search"
           placeholder="Search by folder, title, or description..."
           aria-describedby="active-summary"
@@ -84,6 +84,12 @@ const totalSamples = samples.length;
           <h3 class="sample-card-title">{sample.title}</h3>
           <p class="sample-card-description">{sample.description}</p>
         </div>
+        {sample.authors[0] && (
+          <div class="sample-card-author">
+            <img src={sample.authors[0].pictureUrl} alt="" aria-hidden="true" />
+            <span>{sample.authors[0].name}</span>
+          </div>
+        )}
       </a>
     ))}
     <div id="empty-state" class="sample-empty-state hidden p-5 text-sm">

@@ -11,6 +11,7 @@ export type SampleEntry = {
   updatedAt: Date | null;
   longDescription: string[];
   metadata: Array<{ key: string; value: string }>;
+  authors: Array<{ name: string; gitHubAccount: string; pictureUrl: string }>;
   imageUrl: string | null;
   imageAlt: string;
   readmeContent: string;
@@ -81,6 +82,15 @@ export async function getSamples(): Promise<SampleEntry[]> {
           ? item.metadata.filter(
               (entry): entry is { key: string; value: string } =>
                 !!entry && typeof entry.key === "string" && typeof entry.value === "string"
+            )
+          : [],
+        authors: Array.isArray(item.authors)
+          ? item.authors.filter(
+              (author): author is { name: string; gitHubAccount: string; pictureUrl: string } =>
+                !!author &&
+                typeof author.name === "string" &&
+                typeof author.gitHubAccount === "string" &&
+                typeof author.pictureUrl === "string"
             )
           : [],
         imageUrl: typeof item.imageUrl === "string" && item.imageUrl.trim().length > 0 ? item.imageUrl : null,
