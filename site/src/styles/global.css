@@ -659,3 +659,40 @@ html[data-theme="light"] .browse-summary-note {
 html[data-theme="light"] .sample-date-pill {
   color: var(--summary-muted);
 }
+
+html[data-theme="light"] .readme-content :where(h1, h2, h3, h4, h5, h6) {
+  color: #152238;
+}
+
+html[data-theme="light"] .readme-content p,
+html[data-theme="light"] .readme-content ul,
+html[data-theme="light"] .readme-content ol {
+  color: #526174;
+}
+
+html[data-theme="light"] .readme-content code {
+  color: #334155;
+  background-color: rgb(15 35 65 / 8%);
+}
+
+html[data-theme="light"] .readme-content pre {
+  color: #334155;
+  background-color: #eef4fb;
+  border-color: rgb(15 35 65 / 16%);
+}
+
+html[data-theme="light"] .readme-content blockquote {
+  color: #526174;
+  border-color: rgb(15 35 65 / 24%);
+  background-color: rgb(15 35 65 / 4%);
+}
+
+html[data-theme="light"] .readme-content th {
+  color: #152238;
+  background-color: rgb(15 35 65 / 6%);
+}
+
+html[data-theme="light"] .readme-content th,
+html[data-theme="light"] .readme-content td {
+  border-color: rgb(15 35 65 / 16%);
+}
