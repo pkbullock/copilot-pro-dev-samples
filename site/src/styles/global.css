@@ -154,6 +154,20 @@
     color: var(--chip-text);
   }
 
+  .site-nav .chip-button {
+    border-color: transparent;
+      font-weight: 600;
+  }
+
+  .site-nav .chip-button:hover {
+    border-color: transparent;
+    background-color: var(--accent-bg-soft);
+  }
+
+  .site-nav .chip-button-active {
+    border-color: transparent;
+  }
+
   .theme-toggle {
     @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition;
     border-color: var(--chip-border);
@@ -205,6 +219,33 @@
   .chip-button-repo:hover {
     border-color: var(--color-sky-300);
     color: var(--chip-text);
+  }
+
+  .site-nav .chip-button-repo,
+  .site-nav .chip-button-repo:hover {
+    border-color: transparent;
+  }
+
+  .github-icon {
+    display: block;
+  }
+
+  .github-icon {
+    display: block;
+    align-self: center;
+  }
+
+  .github-icon-dark,
+  :root[data-theme="light"] .github-icon-dark {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .github-icon-light {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .github-icon-dark {
+    display: block;
   }
 
   .theme-eyebrow {
